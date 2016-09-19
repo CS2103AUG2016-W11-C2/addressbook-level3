@@ -73,6 +73,9 @@ public class Parser {
 
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
+                
+            case UndoCommand.COMMAND_WORD:
+                return new UndoCommand();
 
             case ViewCommand.COMMAND_WORD:
                 return prepareView(arguments);

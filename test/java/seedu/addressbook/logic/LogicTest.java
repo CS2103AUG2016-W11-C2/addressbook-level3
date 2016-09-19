@@ -390,6 +390,61 @@ public class LogicTest {
                                 false,
                                 threePersons);
     }
+    
+    @Test
+    public void execute_undo_previousAdd() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Person toBeAdded = helper.adam();
+        AddressBook expectedAB = new AddressBook();
+        expectedAB.addPerson(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                              String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                              expectedAB,
+                              false,
+                              Collections.emptyList());
+        
+        expectedAB.removePerson(toBeAdded);
+        assertCommandBehavior("undo",
+                String.format(UndoCommand.MESSAGE_SUCCESS),
+                expectedAB,
+                false,
+                Collections.emptyList());
+
+    }
+    
+    @Test
+    public void execute_undo_previousDelete() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePerson(1, false);
+        Person p2 = helper.generatePerson(2, true);
+        Person p3 = helper.generatePerson(3, true);
+
+        List<Person> threePersons = helper.generatePersonList(p1, p2, p3);
+
+        AddressBook expectedAB = helper.generateAddressBook(threePersons);
+        expectedAB.removePerson(p2);
+
+
+        helper.addToAddressBook(addressBook, threePersons);
+        logic.setLastShownList(threePersons);
+
+        assertCommandBehavior("delete 2",
+                                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, p2),
+                                expectedAB,
+                                false,
+                                threePersons);
+        
+        expectedAB.addPerson(p2);
+        assertCommandBehavior("undo",
+                String.format(UndoCommand.MESSAGE_SUCCESS),
+                expectedAB,
+                false,
+                threePersons);
+        
+    }
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {

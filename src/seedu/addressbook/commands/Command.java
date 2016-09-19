@@ -3,6 +3,8 @@ package seedu.addressbook.commands;
 import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.person.ReadOnlyPerson;
+import seedu.addressbook.data.person.UniquePersonList.DuplicatePersonException;
+import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 
 import java.util.List;
 
@@ -14,6 +16,7 @@ import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
 public abstract class Command {
     protected AddressBook addressBook;
     protected List<? extends ReadOnlyPerson> relevantPersons;
+    protected static Command lastCommand;
     private int targetIndex = -1;
 
     /**
@@ -40,6 +43,15 @@ public abstract class Command {
      * Executes the command and returns the result.
      */
     public abstract CommandResult execute();
+    
+    /**
+     * Undo the previous command and returns true if it is successful.
+     * @throws DuplicatePersonException 
+     * @throws PersonNotFoundException 
+     */
+    public boolean undo() throws DuplicatePersonException, PersonNotFoundException {
+        return false;
+    }
 
     /**
      * Supplies the data the command will operate on.

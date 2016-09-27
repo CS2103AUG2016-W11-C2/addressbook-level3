@@ -95,6 +95,10 @@ Examples:
   `viewall 1`<br>
   Views all details of the 1st person in the results of the `find` command.
 
+## Undoing the previous command : `undo`
+Undo the previous command if it is add/delete.<br>
+Format: `undo`  
+
 ## Clearing all entries : `clear`
 Clears all entries from the address book.<br>
 Format: `clear`  

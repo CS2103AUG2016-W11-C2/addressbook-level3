@@ -130,6 +130,13 @@ public class AddressBook {
         allPersons.clear();
         allTags.clear();
     }
+    
+    /**
+     * Sorts all persons in lexicographical order
+     */
+    public void sort() {
+        allPersons.sort();
+    }
 
     /**
      * Defensively copied UniquePersonList of all persons in the address book at the time of the call.

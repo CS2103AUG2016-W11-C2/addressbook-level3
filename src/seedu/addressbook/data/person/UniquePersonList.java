@@ -93,7 +93,15 @@ public class UniquePersonList implements Iterable<Person> {
         }
         internalList.add(toAdd);
     }
-
+    
+    
+    /**
+     * Copies all the persons from any UniquePersonList
+     */
+    public void addAll(UniquePersonList personList) {
+        internalList.addAll(personList.internalList);
+    }
+    
     /**
      * Removes the equivalent person from the list.
      *

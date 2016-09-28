@@ -26,7 +26,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
     private final Person toAdd;
-    private static ReadOnlyPerson lastAddedTarget;
+    private ReadOnlyPerson lastAddedTarget;
 
     /**
      * Convenience constructor using raw values.
@@ -61,11 +61,16 @@ public class AddCommand extends Command {
     }
 
     @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
+    
+    @Override
     public CommandResult execute() {
         try {
             addressBook.addPerson(toAdd);
             lastAddedTarget = toAdd;
-            lastCommand = this;
+            lastMutatingCommands.push(this);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniquePersonList.DuplicatePersonException dpe) {
             return new CommandResult(MESSAGE_DUPLICATE_PERSON);

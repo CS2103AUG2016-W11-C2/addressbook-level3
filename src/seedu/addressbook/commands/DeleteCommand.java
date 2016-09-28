@@ -21,13 +21,17 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
     
-    private static ReadOnlyPerson lastDeletedTarget; 
+    private ReadOnlyPerson lastDeletedTarget; 
 
 
     public DeleteCommand(int targetVisibleIndex) {
         super(targetVisibleIndex);
     }
-
+    
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 
     @Override
     public CommandResult execute() {
@@ -35,7 +39,7 @@ public class DeleteCommand extends Command {
             final ReadOnlyPerson target = getTargetPerson();
             addressBook.removePerson(target);
             lastDeletedTarget = target;
-            lastCommand = this;
+            lastMutatingCommands.push(this);
             return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, target));
 
         } catch (IndexOutOfBoundsException ie) {

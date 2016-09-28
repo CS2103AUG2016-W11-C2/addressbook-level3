@@ -46,6 +46,15 @@ public class AddressBook {
             syncTagsWithMasterList(p);
         }
     }
+    
+    /**
+     * Copy every person and tag from the duplicate address book
+     * @throws DuplicateTagException 
+     */
+    public void copyPersonsAndTags(AddressBook duplicate) throws DuplicateTagException {
+        this.allPersons.addAll(duplicate.getAllPersons());
+        this.allTags.addAll(duplicate.getAllTags());
+    }
 
     /**
      * Ensures that every tag in this person:

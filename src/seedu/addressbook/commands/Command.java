@@ -5,8 +5,10 @@ import seedu.addressbook.data.AddressBook;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.UniquePersonList.DuplicatePersonException;
 import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
+import seedu.addressbook.data.tag.UniqueTagList.DuplicateTagException;
 
 import java.util.List;
+import java.util.Stack;
 
 import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
 
@@ -16,7 +18,7 @@ import static seedu.addressbook.ui.Gui.DISPLAYED_INDEX_OFFSET;
 public abstract class Command {
     protected AddressBook addressBook;
     protected List<? extends ReadOnlyPerson> relevantPersons;
-    protected static Command lastCommand;
+    protected static Stack<Command> lastMutatingCommands = new Stack<Command>();
     private int targetIndex = -1;
 
     /**
@@ -38,6 +40,13 @@ public abstract class Command {
     public static String getMessageForPersonListShownSummary(List<? extends ReadOnlyPerson> personsDisplayed) {
         return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, personsDisplayed.size());
     }
+    
+    /**
+     * Get the command word describing the command
+     */
+    public String getCommandWord() {
+        return "Oops";
+    }
 
     /**
      * Executes the command and returns the result.
@@ -48,8 +57,9 @@ public abstract class Command {
      * Undo the previous command and returns true if it is successful.
      * @throws DuplicatePersonException 
      * @throws PersonNotFoundException 
+     * @throws DuplicateTagException 
      */
-    public boolean undo() throws DuplicatePersonException, PersonNotFoundException {
+    public boolean undo() throws DuplicatePersonException, PersonNotFoundException, DuplicateTagException {
         return false;
     }
 

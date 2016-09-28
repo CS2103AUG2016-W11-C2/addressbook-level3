@@ -27,7 +27,6 @@ public class HelpCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        lastCommand = this;
         return new CommandResult(MESSAGE_ALL_USAGES);
     }
 }

@@ -408,7 +408,7 @@ public class LogicTest {
         
         expectedAB.removePerson(toBeAdded);
         assertCommandBehavior("undo",
-                String.format(UndoCommand.MESSAGE_SUCCESS),
+                String.format(UndoCommand.MESSAGE_SUCCESS, AddCommand.COMMAND_WORD),
                 expectedAB,
                 false,
                 Collections.emptyList());
@@ -439,7 +439,7 @@ public class LogicTest {
         
         expectedAB.addPerson(p2);
         assertCommandBehavior("undo",
-                String.format(UndoCommand.MESSAGE_SUCCESS),
+                String.format(UndoCommand.MESSAGE_SUCCESS, DeleteCommand.COMMAND_WORD),
                 expectedAB,
                 false,
                 threePersons);

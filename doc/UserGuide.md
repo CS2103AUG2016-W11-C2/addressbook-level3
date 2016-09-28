@@ -100,7 +100,7 @@ Examples:
   Views all details of the 1st person in the results of the `find` command.
 
 ## Undoing the previous command : `undo`
-Undo the previous command if it is add/delete.<br>
+Undo the last stored mutable command e.g. add/delete/clear/sort.<br>
 Format: `undo`  
 
 ## Clearing all entries : `clear`
